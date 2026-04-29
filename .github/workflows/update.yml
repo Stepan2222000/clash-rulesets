@@ -1,0 +1,42 @@
+name: Update ru-blocked rule-provider
+
+on:
+  schedule:
+    # Every 6 hours at :17 (off-peak minute to reduce GH cron delays).
+    - cron: "17 */6 * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/update.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-ruleset
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build provider
+        run: ./scripts/build.sh
+
+      - name: Commit if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git diff --quiet -- ru-blocked-domain-provider.yaml; then
+            echo "no changes"
+            exit 0
+          fi
+          git add ru-blocked-domain-provider.yaml
+          src_sha="$(awk '/^# Source commit:/ {print $4; exit}' ru-blocked-domain-provider.yaml)"
+          git commit -m "ru-blocked: refresh from runetfreedom@${src_sha}"
+          git push
