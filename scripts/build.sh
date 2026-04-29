@@ -11,13 +11,11 @@ trap 'rm -f "$raw_file"' EXIT
 curl -fsSL --max-time 120 "$src_url" -o "$raw_file"
 src_sha="$(curl -fsSL --max-time 30 "$src_sha_url" | python3 -c 'import json,sys; print(json.load(sys.stdin)["sha"][:12])' 2>/dev/null || echo unknown)"
 src_lines="$(wc -l < "$raw_file" | tr -d ' ')"
-build_ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 {
   printf '# Auto-generated from runetfreedom/russia-blocked-geosite\n'
   printf '# Source: %s\n' "$src_url"
   printf '# Source commit: %s (%s lines)\n' "$src_sha" "$src_lines"
-  printf '# Built at: %s\n' "$build_ts"
   printf '# behavior: domain  format: yaml\n'
   printf '#   "+.example.com" matches example.com and all subdomains (mihomo trie semantics)\n'
   printf '#   "example.com"   exact match only (used for "full:" entries)\n'
