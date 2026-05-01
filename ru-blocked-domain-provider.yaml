@@ -1,6 +1,6 @@
 # Auto-generated from runetfreedom/russia-blocked-geosite
 # Source: https://raw.githubusercontent.com/runetfreedom/russia-blocked-geosite/release/ru-blocked.txt
-# Source commit: 3171fcfebcc2 (74818 lines)
+# Source commit: 477d74199b86 (74818 lines)
 # behavior: domain  format: yaml
 #   "+.example.com" matches example.com and all subdomains (mihomo trie semantics)
 #   "example.com"   exact match only (used for "full:" entries)
