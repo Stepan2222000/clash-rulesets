@@ -1,6 +1,6 @@
 # Auto-generated from runetfreedom/russia-blocked-geosite
 # Source: https://raw.githubusercontent.com/runetfreedom/russia-blocked-geosite/release/ru-blocked.txt
-# Source commit: 97b658293623 (74818 lines)
+# Source commit: 02302acccde0 (74819 lines)
 # behavior: domain  format: yaml
 #   "+.example.com" matches example.com and all subdomains (mihomo trie semantics)
 #   "example.com"   exact match only (used for "full:" entries)
@@ -10581,6 +10581,7 @@ payload:
   - '+.cdn.betterttv.net'
   - '+.cdn.bombahentai.com'
   - '+.cdn.imagedeliveries.com'
+  - '+.cdn.jsdelivr.net'
   - '+.cdn.laola1.live'
   - '+.cdn.ponybooru.org'
   - '+.cdn.prncomix.com'
